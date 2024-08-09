@@ -9,6 +9,10 @@ const ServiceCard = ({ Icon, title, description }) => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      whileTap={{ scale: 1.05 }} // Expand on tap
+      onTapCancel={{ scale: 1 }} // Reset scale when tap is canceled
+      onTapStart={{ scale: 1.05 }} // Also expand when tap starts
+      onTapEnd={{ scale: 1 }} // Shrink back when tap ends
     >
       <div className="bg-white rounded-lg shadow-lg overflow-hidden h-64 relative group">
         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-transform duration-300 transform group-hover:-translate-y-full">
