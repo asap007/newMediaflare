@@ -26,3 +26,16 @@ body{
   scrollbar-width: none;  /* Firefox */
 }
 
+@keyframes flowingOutline {
+  0%, 100% {
+    stroke: #ff00ff;
+    stroke-dasharray: 0 300;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke: #00ffff;
+    stroke-dasharray: 300 0;
+    stroke-dashoffset: -300;
+  }
+}
+

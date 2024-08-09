@@ -13,7 +13,7 @@ const ServiceCard = ({ Icon, title, description, isMobile }) => {
       <div className={`bg-white rounded-lg -mt-2 shadow-lg overflow-hidden ${isMobile ? 'h-auto' : 'h-64'} relative group`}>
         {isMobile ? (
           <div className="p-6">
-            <Icon className="text-5xl text-emerald-500 mb-4 mx-auto" />
+            <Icon className="text-5xl text-purple-500 mb-4 mx-auto" />
             <h3 className="text-xl font-semibold text-gray-800 font-termina text-center mb-4">{title}</h3>
             <hr />
             <p className="text-gray-600 mt-5 mb-5 font-termina text-center">{description}</p>
@@ -21,10 +21,10 @@ const ServiceCard = ({ Icon, title, description, isMobile }) => {
         ) : (
           <>
             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-transform duration-300 transform group-hover:-translate-y-full">
-              <Icon className="text-5xl text-emerald-500 mb-4" />
+              <Icon className="text-5xl text-purple-500 mb-4" />
               <h3 className="text-xl font-semibold font-termina text-gray-800">{title}</h3>
             </div>
-            <div className="absolute inset-0 bg-emerald-500 p-6 transition-transform font-termina duration-300 transform translate-y-full group-hover:translate-y-0 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 p-6 transition-transform font-termina duration-300 transform translate-y-full group-hover:translate-y-0 flex items-center justify-center">
               <p className="text-white text-center">{description}</p>
             </div>
           </>
@@ -96,19 +96,19 @@ const InteractiveSlide = () => {
       ref={containerRef}
       initial={{ opacity: 0, y: 100 }}
       animate={controls}
-      transition={{ duration: 0.5 }}
-      className="bg-gray-300 py-8 px-4 sm:px-6 lg:px-7"
+      transition={{ duration: 0.7 }}
+      className="bg-gray-600 py-8 px-4 sm:px-6 lg:px-7"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-8 text-center font-anton">Our Services</h2>
+        <h2 className="text-4xl font-extrabold text-white mb-8 text-center font-termina">Our Services</h2>
         <div className="relative">
           {isMobile && (
             <>
               <button onClick={() => scroll('left')} className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md">
-                <FaChevronLeft className="text-emerald-500" />
+                <FaChevronLeft className="text-purple-500" />
               </button>
               <button onClick={() => scroll('right')} className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md">
-                <FaChevronRight className="text-emerald-500" />
+                <FaChevronRight className="text-purple-500" />
               </button>
             </>
           )}

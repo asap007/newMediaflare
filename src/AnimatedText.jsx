@@ -46,8 +46,8 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
     ['100%', '0%']
   );
   const ContactUsY = useTransform(scrollYProgress,
-    [0.80, 1],
-    ['100%', '-4.5%']
+    [0.80, 0.98],
+    ['100%', '-4.8%']
   );
 
   useEffect(() => {
@@ -75,11 +75,24 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
           className="inline-block relative"
           style={{ zIndex: getAlternatingZIndex(index + word.length) }}
         >
-          {/* Add the white outline */}
-          <span className="absolute top-0 left-0 text-black -z-1 translate-x-1 translate-y-1">
+          <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <text
+              x="50"
+              y="80"
+              textAnchor="middle"
+              className="text-[80px] font-anton fill-transparent stroke-[3]"
+              style={{
+                animation: `flowingOutline 4s linear infinite`,
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
               {letter}
-            </span>
-          <span className="text-white">{letter}</span>
+            </text>
+          </svg>
+          <span className="absolute top-0 left-0 text-black -z-1 translate-x-1 translate-y-1">
+            {letter}
+          </span>
+          <span className="text-white relative z-10">{letter}</span>
         </motion.div>
       ))}
     </motion.div>
@@ -130,7 +143,7 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
   return (
     <div className="h-[1000vh]"> 
       <div className={`h-screen w-screen flex flex-col items-center justify-center ${backgroundColor} overflow-hidden sticky top-0`}>
-      <div className="max-w-28 absolute left-0 top-0 h-9 sm:h-12 md:h-16 lg:h-20" style={{zIndex: 20}}>
+      <div className="max-w-28 absolute left-0 top-0 h-9 sm:h-12 md:h-16 lg:h-20" style={{zIndex: 7}}>
         <img src="/images/mediaflarelogo.png" alt="Mediaflare Logo" className="h-full"/>
       </div>
           {renderAnimatedWord(word1, 0, word1X)}
@@ -186,7 +199,7 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
           className="absolute w-full"
           style={{
             y: ContactUsY,
-            zIndex: 6,
+            zIndex: 7,
           }}
         >
           <ContactUs />
