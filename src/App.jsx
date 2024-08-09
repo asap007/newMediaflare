@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedText from './AnimatedText';
+import AnimatedText from './Components/AnimatedText';
 
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PropTypes from 'prop-types';
-import './App.css';
+import '../App.css';
 import LearnWithUs from './LearnWithUs';
 import ContactUs from './ContactUs';
 import InteractiveSliding from './InteractiveSliding';
@@ -141,7 +141,7 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
 
 
   return (
-    <div className="h-[800vh]"> 
+    <div className="h-[550vh]"> 
       <div className={`h-screen w-screen flex flex-col items-center justify-center ${backgroundColor} overflow-hidden sticky top-0`}>
       <div className="max-w-28 absolute left-0 top-0 h-9 sm:h-12 md:h-16 lg:h-20" style={{zIndex: 7}}>
         <img src="/images/mediaflarelogo.png" alt="Mediaflare Logo" className="h-full"/>

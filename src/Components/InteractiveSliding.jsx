@@ -8,7 +8,7 @@ const ServiceCard = ({ Icon, title, description, isMobile }) => {
       className={`w-full ${isMobile ? 'sm:w-80 md:w-80' : 'sm:w-1/2 md:w-1/3'} p-6 flex-shrink-0`}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.9 }}
     >
       <div className={`bg-white rounded-lg -mt-2 shadow-lg overflow-hidden ${isMobile ? 'h-auto' : 'h-64'} relative group`}>
         {isMobile ? (

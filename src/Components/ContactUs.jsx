@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { motion, useInView } from 'framer-motion';
-import logo from '../public/images/mediaflarelogo.png'; // Replace with the correct path to your logo
+import logo from '/images/mediaflarelogo.png'; 
 
 const ContactPage = () => {
   const ref = React.useRef(null);
