@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'anton';
-  src: url('./Anton.woff') format('truetype');
+  src: url('./fonts/Anton.woff') format('truetype');
 }
 @font-face {
   font-family: 'termina';
-  src: url('./Termina-Regular.woff2') format('truetype');
+  src: url('./fonts/Termina-Regular.woff2') format('truetype');
 }
 
 @tailwind base;
