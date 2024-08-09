@@ -15,7 +15,8 @@ const ServiceCard = ({ Icon, title, description, isMobile }) => {
           <div className="p-6">
             <Icon className="text-5xl text-emerald-500 mb-4 mx-auto" />
             <h3 className="text-xl font-semibold text-gray-800 text-center mb-4">{title}</h3>
-            <p className="text-gray-600 text-center">{description}</p>
+            <hr />
+            <p className="text-gray-600 mt-5 mb-5 text-center">{description}</p>
           </div>
         ) : (
           <>
