@@ -14,17 +14,17 @@ const ServiceCard = ({ Icon, title, description, isMobile }) => {
         {isMobile ? (
           <div className="p-6">
             <Icon className="text-5xl text-emerald-500 mb-4 mx-auto" />
-            <h3 className="text-xl font-semibold text-gray-800 text-center mb-4">{title}</h3>
+            <h3 className="text-xl font-semibold text-gray-800 font-termina text-center mb-4">{title}</h3>
             <hr />
-            <p className="text-gray-600 mt-5 mb-5 text-center">{description}</p>
+            <p className="text-gray-600 mt-5 mb-5 font-termina text-center">{description}</p>
           </div>
         ) : (
           <>
             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-transform duration-300 transform group-hover:-translate-y-full">
               <Icon className="text-5xl text-emerald-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
+              <h3 className="text-xl font-semibold font-termina text-gray-800">{title}</h3>
             </div>
-            <div className="absolute inset-0 bg-emerald-500 p-6 transition-transform duration-300 transform translate-y-full group-hover:translate-y-0 flex items-center justify-center">
+            <div className="absolute inset-0 bg-emerald-500 p-6 transition-transform font-termina duration-300 transform translate-y-full group-hover:translate-y-0 flex items-center justify-center">
               <p className="text-white text-center">{description}</p>
             </div>
           </>
@@ -90,7 +90,7 @@ const InteractiveSlide = () => {
   return (
     <div className="bg-gray-300 py-8 px-4 sm:px-6 lg:px-7">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Our Services</h2>
+        <h2 className="text-4xl font-extrabold text-gray-900 mb-8 text-center font-anton">Our Services</h2>
         <div className="relative">
           {isMobile && (
             <>
