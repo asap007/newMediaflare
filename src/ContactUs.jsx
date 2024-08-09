@@ -11,7 +11,7 @@ const ContactPage = () => {
         <div className="space-y-8">
           <div>
             <h2 className="text-2xl md:text-xl mb-2">(LET'S CONNECT)</h2>
-            <a href="mailto:hello@agentic.com" className="text-4xl md:text-6xl font-bold">mediflare.com</a>
+            <a href="mailto:hello@agentic.com" className="text-4xl md:text-6xl font-bold">mediaflare.com</a>
           </div>
           <div>
             <a href="tel:+1999888777" className="text-3xl md:text-4xl font-bold">+1 999 888 777</a>
@@ -28,7 +28,7 @@ const ContactPage = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <p className="text-sm">© 2024 by Mediflare</p>
+        <p className="text-sm">© 2024 by Mediaflare</p>
       </div>
     </div>
   );

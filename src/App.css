@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'anton';
-  src: url('./Anton.ttf') format('truetype');
+  src: url('./Anton.woff') format('truetype');
 }
 @font-face {
   font-family: 'termina';
-  src: url('./Termina-Regular.ttf') format('truetype');
+  src: url('./Termina-Regular.woff2') format('truetype');
 }
 
 @tailwind base;
@@ -38,7 +38,7 @@ body{
 
 .scroll-text {
   display: inline-block;
-  animation: scroll 40s linear infinite;
+  animation: scroll 20s linear infinite;
 }
 
 .scroll-text span {
@@ -61,7 +61,7 @@ body{
   }
 
   .scroll-text {
-    animation: scroll 40s linear infinite;
+    animation: scroll 20s linear infinite;
   }
 }
 

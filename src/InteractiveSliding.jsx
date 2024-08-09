@@ -1,97 +1,74 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaCode, FaChartLine, FaBullhorn, FaPaintBrush, FaSearchDollar, FaMobileAlt } from 'react-icons/fa';
 
-const InteractiveSliding = () => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+const ServiceCard = ({ Icon, title, description }) => {
+  return (
+    <motion.div 
+      className="w-full sm:w-1/2 md:w-1/3 p-4"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden h-64 relative group">
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-transform duration-300 transform group-hover:-translate-y-full">
+          <Icon className="text-5xl text-emerald-500 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
+        </div>
+        <div className="absolute inset-0 bg-emerald-500 p-6 transition-transform duration-300 transform translate-y-full group-hover:translate-y-0 flex items-center justify-center">
+          <p className="text-white text-center">{description}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
-  const items = [
-    { title: "What We Do", description: `At Mediaflare, our mission is to illuminate your brand’s potential and bring it to life. Whether you’re launching a new venture or evolving an established presence, our expertise lies in building a strong brand foundation and strategy that forms the core of your success. Collaborating closely with your internal team, our comprehensive approach to brand development sets the stage for everything that follows—defining your brand’s personality, positioning, values, and design experience. Together, we elevate brands to new heights.` },
-    { title: "Creative", description: `At Mediaflare, our creative services are designed to transform your vision into captivating visual narratives. Our Creative Services Include:
-
-    Graphic Design, 
-    Videography, 
-    Photography, 
-    Motion Graphics, 
-    Copywriting, 
-    Content Creation, 
-    Visual Storytelling, 
-    Advertising Campaigns, 
-    Brand Collateral Design.` },
-    { title: "Marketing", description: `At Mediaflare, our marketing services are tailored to amplify your brand's voice and reach. We blend innovative strategies with data-driven insights to create impactful campaigns that connect with your target audience. Our dedicated team ensures your brand's message is heard loud and clear in the digital space.
-
-    Our Marketing Services Include:
-    
-    Social Media Management,
-    Digital Advertising,
-    Search Engine Optimization (SEO),
-    Content Marketing,
-    Email Marketing,
-    Influencer Partnerships,
-    Market Research & Analysis,
-    Campaign Strategy & Execution,
-    Performance Analytics & Reporting.` },
-    { title: "Technical", description: `At Mediaflare, our technical services are designed to build a robust digital foundation for your brand. We combine cutting-edge technology with innovative solutions to ensure seamless performance and a superior user experience. Our skilled team works meticulously to deliver reliable and scalable digital solutions.
-
-    Our Technical Services Include:
-    
-    Website Development,
-    Mobile App Development,
-    E-commerce Solutions,
-    Web Hosting & Maintenance,
-    User Experience (UX) Design,
-    Content Management Systems (CMS),
-    Custom Software Development,
-    API Integration,
-    Data Security & Compliance.` },
+const InteractiveSlide = () => {
+  const services = [
+    {
+      Icon: FaCode,
+      title: "Web Development",
+      description: "We create robust and scalable web applications tailored to your specific needs, ensuring a seamless user experience across all devices."
+    },
+    {
+      Icon: FaChartLine,
+      title: "Digital Strategy",
+      description: "Our expert team crafts comprehensive digital strategies to boost your online presence and achieve your business goals."
+    },
+    {
+      Icon: FaBullhorn,
+      title: "Digital Marketing",
+      description: "We leverage cutting-edge marketing techniques to increase your brand visibility and drive conversions in the digital space."
+    },
+    {
+      Icon: FaPaintBrush,
+      title: "UI/UX Design",
+      description: "Our designers create intuitive and visually appealing interfaces that enhance user engagement and satisfaction."
+    },
+    {
+      Icon: FaSearchDollar,
+      title: "SEO Optimization",
+      description: "We optimize your online content to improve search engine rankings and increase organic traffic to your website."
+    },
+    {
+      Icon: FaMobileAlt,
+      title: "Mobile App Development",
+      description: "We develop high-performance, user-friendly mobile applications for both iOS and Android platforms."
+    }
   ];
 
-  const handleExpand = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
-
   return (
-    <div className="w-screen min-h-screen bg-orange-100 flex items-center justify-center font-termina p-4">
-      <div className="w-full max-w-7xl">
-        {items.map((item, index) => (
-          <motion.div
-            key={index}
-            className="mb-6"
-            initial={false}
-            animate={{ height: expandedIndex === index ? 'auto' : '60px' }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <div className="relative flex items-center justify-between bg-white rounded-lg shadow-md p-4">
-              <h1 className="text-black font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tighter">
-                {item.title}
-              </h1>
-              <motion.button
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white"
-                onClick={() => handleExpand(index)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {expandedIndex === index ? <FaMinus /> : <FaPlus />}
-              </motion.button>
-            </div>
-            <AnimatePresence>
-              {expandedIndex === index && (
-                <motion.div
-                  className="bg-white text-black p-4 rounded-b-lg shadow-md mt-2"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p>{item.description}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
+    <div className="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Our Services</h2>
+        <div className="flex flex-wrap -mx-4">
+          {services.map((service, index) => (
+            <ServiceCard key={index} {...service} />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default InteractiveSliding;
+export default InteractiveSlide;
