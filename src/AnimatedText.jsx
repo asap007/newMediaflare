@@ -42,11 +42,11 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
     ['100%', '0%']
   );
   const learnWithUsY = useTransform(scrollYProgress,
-    [0.65, 0.73],
+    [0.65, 0.75],
     ['100%', '0%']
   );
   const ContactUsY = useTransform(scrollYProgress,
-    [0.80, 0.98],
+    [0.87, 0.98],
     ['100%', '-4.8%']
   );
 
