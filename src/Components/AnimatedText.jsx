@@ -1,16 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import PropTypes from 'prop-types';
 import '../App.css';
 import LearnWithUs from './LearnWithUs';
 import ContactUs from './ContactUs';
 import InteractiveSliding from './InteractiveSliding';
-
-
+import CustomCursor from './CustomCursor';
 
 const textVariant = {
   hidden: { y: "1000%" },
   visible: { y: 0 },
+};
+
+const AnimatedBackground = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const particles = [];
+    const particleCount = 500;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2 + 1,
+        color: `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.1})`,
+        velocity: {
+          x: (Math.random() - 0.5) * 0.5,
+          y: (Math.random() - 0.5) * 0.5
+        }
+      });
+    }
+
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color;
+        ctx.fill();
+
+        particle.x += particle.velocity.x;
+        particle.y += particle.velocity.y;
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.velocity.x *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.velocity.y *= -1;
+      });
+
+      animationFrameId = requestAnimationFrame(drawParticles);
+    };
+
+    drawParticles();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
 };
 
 const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100' }) => {
@@ -75,20 +136,6 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
           className="inline-block relative"
           style={{ zIndex: getAlternatingZIndex(index + word.length) }}
         >
-          <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <text
-              x="50"
-              y="80"
-              textAnchor="middle"
-              className="text-[80px] font-anton fill-transparent stroke-[3]"
-              style={{
-                animation: `flowingOutline 4s linear infinite`,
-                animationDelay: `${index * 0.1}s`,
-              }}
-            >
-              {letter}
-            </text>
-          </svg>
           <span className="absolute top-0 left-0 text-black -z-1 translate-x-1 translate-y-1">
             {letter}
           </span>
@@ -99,55 +146,75 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
   );
 
   const renderRectangles = () => {
-  // Updated media items array with descriptions
-  const mediaItems = [
-    { url: './gifs/1 Aarohan cinematic.gif', title: "AAROHAN", description: `Driven by a striking visual identity, we delved into the core of what makes Aarohan resonate with its audience. We revitalized this brand for the modern digital era, enhancing its online presence through comprehensive website development, dynamic social media strategies, and cohesive design and branding.` },
-    { url: './gifs/2 arohan website.gif',title: "WEB DEVELOPMENT", description: `We successfully transformed AAROHAN's digital footprint with our top-notch web development services. Our innovative designs and seamless functionality significantly enhanced their online presence.` },
-    { url: './gifs/3 Aarohan Social media.gif',title: "SOCIAL MEDIA", description: `We successfully elevated AAROHAN's online presence through our expert social media marketing. Our engaging content and strategic approach drove significant results across all platforms.` },
-    { url: './gifs/4 Reva.gif',title: "REVA", description: `Guided by immersive storytelling and a visually stunning approach, we captured the spirit of Reva's appeal.`},
-    { url: '/gifs/4 touchwood.gif',title: "TOUCHWOOD", description: 'Embracing enchanting storytelling and an evocative visual style, we unveiled the true charm of Touchwood Resort. We reimagined this serene getaway for the modern digital era, enhancing its allure through strategic social media engagement and captivating videography.' },
-    { url: '/images/Social Snapshot (2).png',title: "SOCIAL SNAPSHOT" ,description: 'Driven by powerful storytelling and a striking visual identity, we uncovered the essence of Social Snapshot.' }
-  ];
-
-  return (
-    <div className="flex overflow-x-auto space-x-10 lg:space-x-20 py-4 w-screen no-scrollbar font-termina">
-      {mediaItems.map((item, i) => (
-        <motion.div
-          key={i}
-          className="flex-shrink-0 w-[80vw] sm:w-[60vw] md:w-[40vw] lg:w-[28vw] h-auto flex flex-col items-center"
-          style={{ x: rectangleX }}
-        >
-          <div className='flex justify-center items-center rounded-lg mt-48'>
-          {item.url.endsWith('.mp4') ? (
-            <video src={item.url} autoPlay loop muted className="w-full h-full rounded-lg object-contain shadow-lg" />
-          ) : (
-            <img src={item.url} alt={`Media ${i}`} className="w-full h-full rounded-lg object-contain shadow-lg" />
-          )}
-          </div>
-          <motion.div 
-            className="bg-black bg-opacity-70 text-white p-1 lg:p-2 rounded-b-lg w-full text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 + i * 0.1 }}
+    const mediaItems = [
+      { url: './gifs/1 Aarohan cinematic.gif', title: "AAROHAN", description: `Driven by a striking visual identity, we delved into the core of what makes Aarohan resonate with its audience. We revitalized this brand for the modern digital era, enhancing its online presence through comprehensive website development, dynamic social media strategies, and cohesive design and branding.` },
+      { url: './gifs/2 arohan website.gif',title: "WEB DEVELOPMENT", description: `We successfully transformed AAROHAN's digital footprint with our top-notch web development services. Our innovative designs and seamless functionality significantly enhanced their online presence.` },
+      { url: './gifs/3 Aarohan Social media.gif',title: "SOCIAL MEDIA", description: `We successfully elevated AAROHAN's online presence through our expert social media marketing. Our engaging content and strategic approach drove significant results across all platforms.` },
+      { url: './gifs/4 Reva.gif',title: "REVA", description: `Guided by immersive storytelling and a visually stunning approach, we captured the spirit of Reva's appeal.`},
+      { url: '/gifs/4 touchwood.gif',title: "TOUCHWOOD", description: 'Embracing enchanting storytelling and an evocative visual style, we unveiled the true charm of Touchwood Resort. We reimagined this serene getaway for the modern digital era, enhancing its allure through strategic social media engagement and captivating videography.' },
+      { url: '/images/Social Snapshot (2).png',title: "SOCIAL SNAPSHOT" ,description: 'Driven by powerful storytelling and a striking visual identity, we uncovered the essence of Social Snapshot.' }
+    ];
+  
+    return (
+      <div className="flex overflow-x-auto space-x-10 lg:space-x-20 py-4 w-screen no-scrollbar font-termina">
+        {mediaItems.map((item, i) => (
+          <motion.div
+            key={i}
+            className="flex-shrink-0 w-[80vw] sm:w-[60vw] md:w-[40vw] lg:w-[28vw] h-auto flex flex-col items-center"
+            style={{ x: rectangleX }}
           >
-            <h1 className="text-lg font-anton tracking-wider font-light">{item.title}</h1>
-            <p className="text-sm">{item.description}</p>
+            <div className='flex justify-center items-center rounded-lg mt-48'>
+            {item.url.endsWith('.mp4') ? (
+              <video src={item.url} autoPlay loop muted className="w-full h-full rounded-lg object-contain shadow-lg" />
+            ) : (
+              <img src={item.url} alt={`Media ${i}`} className="w-full h-full rounded-lg object-contain shadow-lg" />
+            )}
+            </div>
+            <motion.div 
+              className="bg-black bg-opacity-70 text-white p-1 lg:p-2 rounded-b-lg w-full text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.1 }}
+            >
+              <h1 className="text-lg font-anton tracking-wider font-light">{item.title}</h1>
+              <p className="text-sm">{item.description}</p>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="h-[550vh]"> 
-      <div className={`h-screen w-screen flex flex-col items-center justify-center ${backgroundColor} overflow-hidden sticky top-0`}>
-      <div className="max-w-28 absolute left-0 top-0 h-9 sm:h-12 md:h-16 lg:h-20" style={{zIndex: 7}}>
-        <img src="/images/mediaflarelogo.png" alt="Mediaflare Logo" className="h-full"/>
-      </div>
+    <CustomCursor />
+      <div className={`h-screen w-screen flex flex-col items-center justify-center ${backgroundColor} overflow-hidden sticky top-0 relative`}>
+        <AnimatedBackground />
+
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 z-1" />
+
+        <motion.div
+          className="absolute w-[800px] h-[800px] rounded-full bg-gradient-to-r from-indigo-300 to-purple-300 opacity-20 blur-3xl z-2"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+            x: [-100, 100, -100],
+            y: [-50, 50, -50],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        <div className="max-w-28 absolute left-0 top-0 h-9 sm:h-12 md:h-16 lg:h-20" style={{zIndex: 7}}>
+          <img src="/images/mediaflarelogo.png" alt="Mediaflare Logo" className="h-full"/>
+        </div>
+        <div className="relative z-12">
           {renderAnimatedWord(word1, 0, word1X)}
           {renderAnimatedWord(word2, word1Duration, word2X)}
+        </div>
 
         <motion.div
           className="absolute inset-x-0 top-1/2 transform -translate-y-1/2 bg-red-700"
@@ -215,6 +282,5 @@ AnimatedText.propTypes = {
   ribbonText: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
 };
-
 
 export default AnimatedText;

@@ -97,7 +97,7 @@ const InteractiveSlide = () => {
       initial={{ opacity: 0, y: 100 }}
       animate={controls}
       transition={{ duration: 0.7 }}
-      className="bg-gray-600 py-8 px-4 sm:px-6 lg:px-7"
+      className=" py-8 px-4 sm:px-6 lg:px-7"
     >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-extrabold text-white mb-8 text-center font-termina">Our Services</h2>
