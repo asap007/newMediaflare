@@ -89,3 +89,15 @@ button:hover ~ .cursor-outer {
   background-color: rgba(55, 255, 0, 0.1);
 }
 
+
+@media (max-width: 768px) {
+  .cursor-outer,
+  .cursor-inner,
+  .cursor-trail {
+    display: none;
+  }
+
+  body {
+    cursor: auto;
+  }
+}
