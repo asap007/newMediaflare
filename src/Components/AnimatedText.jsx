@@ -5,7 +5,7 @@ import '../App.css';
 import LearnWithUs from './LearnWithUs';
 import ContactUs from './ContactUs';
 import InteractiveSliding from './InteractiveSliding';
-import CustomCursor from './CustomCursor';
+
 
 const textVariant = {
   hidden: { y: "1000%" },
@@ -187,7 +187,6 @@ const AnimatedText = ({ word1, word2, ribbonText, backgroundColor = 'bg-gray-100
 
   return (
     <div className="h-[550vh]"> 
-    <CustomCursor />
       <div className={`h-screen w-screen flex flex-col items-center justify-center ${backgroundColor} overflow-hidden sticky top-0 relative`}>
         <AnimatedBackground />
 
